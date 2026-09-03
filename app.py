@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import yt_dlp
 
 app = Flask(__name__)
@@ -7,10 +7,15 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/download', methods=['POST'])
+# បន្ថែម GET និង POST ដើម្បីកុំឱ្យជួប error "Method Not Allowed"
+@app.route('/download', methods=['GET', 'POST'])
 def download():
+    # ប្រសិនបើមានគេបើក link /download លើ Browser ដោយផ្ទាល់ (GET method)
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+
+    # សម្រាប់សំណើទាញយកវីដេអូ (POST method)
     try:
-        # ទទួលទិន្នន័យបានទាំង JSON និង Form
         data = request.get_json(silent=True)
         if data and 'url' in data:
             video_url = data.get('url')
@@ -20,7 +25,6 @@ def download():
         if not video_url:
             return jsonify({'status': 'error', 'message': 'សូមបញ្ចូល Link វីដេអូ!'}), 400
 
-        # ការកំណត់ yt-dlp ដើម្បីទាញយក Link វីដេអូ HD
         ydl_opts = {
             'format': 'best',
             'quiet': True,

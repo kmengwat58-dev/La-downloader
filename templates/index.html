@@ -3,447 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VideoDownloader Pro - ទាញយកវីដេអូឥតគិតថ្លៃ</title>
-    <!-- Font Awesome Icons -->
+    <title>MediaSaver Pro - ទាញយកវីដេអូ HD</title>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font: Inter & Battambang -->
-    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --success: #10b981;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-        }
-
+        /* Modern Reset & Responsive Core */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Battambang', 'Inter', sans-serif;
+            font-family: 'Kantumruy Pro', sans-serif;
         }
 
-        body {
-            background: var(--bg-gradient);
+        html, body {
+            width: 100%;
             min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Responsive Container */
+        .wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 16px;
             display: flex;
             flex-direction: column;
-            color: #fff;
+            align-items: center;
         }
 
-        /* Navigation Bar */
+        /* Header Section */
         header {
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .logo i {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: #6366f1;
-            font-size: 1.8rem;
+            margin-bottom: 12px;
         }
 
-        /* Main Container */
-        main {
-            flex: 1;
+        h1 {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        p.subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        /* Platform Badges Container */
+        .badges {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 50px 20px;
-            max-width: 900px;
-            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
             width: 100%;
         }
 
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
+        .badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             color: #cbd5e1;
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(5px);
         }
 
-        /* Platform Icons */
-        .platforms {
-            display: flex;
-            gap: 15px;
+        /* Main Download Box Card */
+        .download-box {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 24px 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             margin-bottom: 30px;
         }
 
-        .platform-badge {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* Downloader Card */
-        .card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 35px;
-            width: 100%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            color: var(--text-main);
-            transition: all 0.3s ease;
-        }
-
-        /* Input Form */
         .input-group {
             display: flex;
-            gap: 10px;
-            position: relative;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
         }
 
-        .input-group input {
-            flex: 1;
-            padding: 16px 20px;
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 18px;
             border: 2px solid #e2e8f0;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 1rem;
             outline: none;
+            color: #0f172a;
             transition: all 0.3s ease;
         }
 
-        .input-group input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+        input[type="text"]:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
-        .btn-submit {
-            padding: 16px 32px;
-            background: var(--primary);
-            color: white;
+        .btn-download {
+            width: 100%;
+            padding: 15px 24px;
+            background: #4f46e5;
+            color: #ffffff;
             border: none;
-            border-radius: 14px;
-            font-weight: 600;
+            border-radius: 12px;
             font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: all 0.3s ease;
         }
 
-        .btn-submit:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
+        .btn-download:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
         }
 
-        /* Download Status States */
-        .status-box {
-            display: none;
-            margin-top: 30px;
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        /* Loading State */
-        .spinner-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .custom-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #e2e8f0;
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #6366f1, #a855f7);
-            width: 0%;
-            animation: pulse-progress 2s infinite ease-in-out;
-            transition: width 0.3s;
-        }
-
-        @keyframes pulse-progress {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
-        /* Success State */
-        .success-box {
-            animation: fadeIn 0.5s ease;
-        }
-
-        .success-icon {
-            width: 70px;
-            height: 70px;
-            background: #dcfce7;
-            color: var(--success);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            margin: 0 auto 15px;
-            animation: scaleUp 0.4s ease;
-        }
-
-        @keyframes scaleUp {
-            0% { transform: scale(0); }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .btn-download-final {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 16px;
-            background: var(--success);
-            color: white;
-            text-decoration: none;
-            border-radius: 14px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-download-final:hover {
-            background: #059669;
-            transform: translateY(-2px);
-        }
-
-        /* Error Alert */
-        .alert-error {
-            background: #fef2f2;
-            color: #ef4444;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #fecaca;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Features Section */
-        .features-grid {
+        /* Features Section Grid */
+        .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 16px;
             width: 100%;
-            margin-top: 50px;
         }
 
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
-        .feature-card i {
+        .feature-icon {
             font-size: 2rem;
-            color: #a5b4fc;
-            margin-bottom: 15px;
+            color: #818cf8;
+            margin-bottom: 10px;
         }
 
         .feature-card h3 {
             font-size: 1.1rem;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .feature-card p {
+            font-size: 0.88rem;
             color: #94a3b8;
-            font-size: 0.9rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Loading & Results */
+        #loading {
+            display: none;
+            margin-top: 18px;
+            color: #4f46e5;
+            font-weight: 600;
+            text-align: center;
         }
 
-        @media (max-width: 640px) {
+        #result {
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        .download-btn-success {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .download-btn-success:hover {
+            background: #059669;
+        }
+
+        /* Desktop & Tablet Optimization (Screens wider than 640px) */
+        @media (min-width: 640px) {
+            .wrapper {
+                padding: 40px 20px;
+            }
             .input-group {
-                flex-direction: column;
+                flex-direction: row;
             }
-            .btn-submit {
-                justify-content: center;
+            .btn-download {
+                width: auto;
+                min-width: 150px;
             }
-            .hero-title {
-                font-size: 1.8rem;
+            .features {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header>
-        <a href="/" class="logo">
-            <i class="fa-solid fa-circle-down"></i> MediaSaver Pro
-        </a>
-    </header>
+    <div class="wrapper">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-circle-down"></i> MediaSaver Pro
+            </div>
+            <h1>ទាញយកវីដេអូ HD ឥតគិតថ្លៃ</h1>
+            <p class="subtitle">ទាញយកវីដេអូពី YouTube, TikTok, Facebook Reels និង Instagram ដោយគ្មាន Watermark</p>
+            
+            <div class="badges">
+                <span class="badge"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube</span>
+                <span class="badge"><i class="fa-brands fa-tiktok"></i> TikTok</span>
+                <span class="badge"><i class="fa-brands fa-facebook" style="color: #3b82f6;"></i> Reels</span>
+                <span class="badge"><i class="fa-brands fa-instagram" style="color: #ec4899;"></i> Instagram</span>
+            </div>
+        </header>
 
-    <!-- Main Content Area -->
-    <main>
-        <h1 class="hero-title">ទាញយកវីដេអូ HD ឥតគិតថ្លៃ</h1>
-        <p class="hero-subtitle">ទាញយកវីដេអូពី YouTube, TikTok, Facebook Reels និង Instagram ដោយគ្មាន Watermark</p>
-
-        <!-- Supported Platforms -->
-        <div class="platforms">
-            <div class="platform-badge"><i class="fa-brands fa-youtube" style="color:#ff0000;"></i> YouTube</div>
-            <div class="platform-badge"><i class="fa-brands fa-tiktok"></i> TikTok</div>
-            <div class="platform-badge"><i class="fa-brands fa-facebook" style="color:#1877f2;"></i> Reels</div>
-            <div class="platform-badge"><i class="fa-brands fa-instagram" style="color:#e4405f;"></i> Instagram</div>
-        </div>
-
-        <!-- Main Card -->
-        <div class="card">
-            <form method="POST" id="downloadForm">
+        <div class="download-box">
+            <form id="downloadForm" onsubmit="handleDownload(event)">
                 <div class="input-group">
-                    <input type="text" name="video_url" placeholder="បិទភ្ជាប់ Link វីដេអូនៅទីនេះ..." required autocomplete="off">
-                    <button type="submit" class="btn-submit" id="submitBtn">
+                    <input type="text" id="videoUrl" placeholder="បិទភ្ជាប់ Link វីដេអូនៅទីនេះ..." required autocomplete="off">
+                    <button type="submit" class="btn-download">
                         <i class="fa-solid fa-download"></i> ទាញយក
                     </button>
                 </div>
             </form>
 
-            <!-- Status Step 1: Downloading / Processing -->
-            <div class="status-box" id="loadingStatus">
-                <div class="spinner-container">
-                    <div class="custom-spinner"></div>
-                    <h3 style="font-size: 1.1rem; color: #334155;">កំពុងដំណើរការទាញយក...</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">សូមរង់ចាំបន្តិច ម៉ាស៊ីនកំពុងរៀបចំ File វីដេអូជូនអ្នក</p>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" id="progressFill"></div>
-                    </div>
-                </div>
+            <div id="loading">
+                <i class="fa-solid fa-spinner fa-spin"></i> កំពុងរៀបចំការទាញយក...
             </div>
 
-            <!-- Status Step 2: Download Complete (Backend Flask output) -->
-            {% if message %}
-            <div class="status-box success-box" style="display: block;">
-                <div class="success-icon">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <h3 style="color: #0f172a; margin-bottom: 5px;">ទាញយកបានសម្រេច!</h3>
-                <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 15px;">{{ message }}</p>
-
-                {% if filename %}
-                <a href="/get-video/{{ filename }}" class="btn-download-final">
-                    <i class="fa-solid fa-file-arrow-down"></i> រក្សាទុកវីដេអូក្នុងម៉ាស៊ីន
-                </a>
-                {% endif %}
-            </div>
-            {% endif %}
-
-            <!-- Error State -->
-            {% if error %}
-            <div class="alert-error">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <span>{{ error }}</span>
-            </div>
-            {% endif %}
+            <div id="result"></div>
         </div>
 
-        <!-- Features Showcase -->
-        <div class="features-grid">
+        <div class="features">
             <div class="feature-card">
-                <i class="fa-solid fa-bolt"></i>
+                <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
                 <h3>ល្បឿនលឿន</h3>
                 <p>ទាញយកវីដេអូបានក្នុងរយៈពេលប៉ុន្មានវិនាទី</p>
             </div>
             <div class="feature-card">
-                <i class="fa-solid fa-shield-halved"></i>
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
                 <h3>សុវត្ថិភាព ១០០%</h3>
-                <p>គ្មានការផ្ទុកទិន្នន័យសម្ងាត់ ឬ Virus</p>
-            </div>
-            <div class="feature-card">
-                <i class="fa-solid fa-display"></i>
-                <h3>កម្រិតច្បាស់ HD</h3>
-                <p>រក្សាគុណភាពដើមរបស់វីដេអូ</p>
+                <p>គ្មានការផ្ទុកទិន្នន័យផ្ទាល់ខ្លួន ឬមេរោគឡើយ</p>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        const form = document.getElementById("downloadForm");
-        const submitBtn = document.getElementById("submitBtn");
-        const loadingStatus = document.getElementById("loadingStatus");
-        const progressFill = document.getElementById("progressFill");
+        function handleDownload(e) {
+            e.preventDefault();
+            const url = document.getElementById('videoUrl').value;
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
 
-        form.addEventListener("submit", function () {
-            // Disable button to prevent double submit
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = "0.7";
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> កំពុងដំណើរការ...';
+            loading.style.display = 'block';
+            result.innerHTML = '';
 
-            // Show Loading Animation Section
-            loadingStatus.style.display = "block";
-
-            // Simulate progress bar movement
-            let width = 10;
-            const interval = setInterval(() => {
-                if (width >= 90) {
-                    clearInterval(interval);
+            fetch('/download', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'url=' + encodeURIComponent(url)
+            })
+            .then(res => res.json())
+            .then(data => {
+                loading.style.display = 'none';
+                if(data.status === 'success') {
+                    result.innerHTML = `
+                        <p style="color: #10b981; font-weight:600; margin-bottom:8px;">${data.title || 'រៀបចំរួចរាល់!'}</p>
+                        <a href="${data.url}" class="download-btn-success" target="_blank"><i class="fa-solid fa-file-arrow-down"></i> ចុចទីនេះដើម្បី Save វីដេអូ</a>
+                    `;
                 } else {
-                    width += Math.floor(Math.random() * 15) + 5;
-                    progressFill.style.width = width + '%';
+                    result.innerHTML = `<p style="color: #ef4444; font-weight:500;">${data.message || 'មានបញ្ហា! សូមពិនិត្យ Link ឡើងវិញ'}</p>`;
                 }
-            }, 400);
-        });
+            })
+            .catch(() => {
+                loading.style.display = 'none';
+                result.innerHTML = `<p style="color: #ef4444; font-weight:500;">មានបញ្ហាក្នុងការតភ្ជាប់ទៅ Server!</p>`;
+            });
+        }
     </script>
 </body>
 </html>

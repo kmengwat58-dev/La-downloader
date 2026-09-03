@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Modern Reset & Responsive Core */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -26,7 +25,6 @@
             overflow-x: hidden;
         }
 
-        /* Responsive Container */
         .wrapper {
             width: 100%;
             max-width: 900px;
@@ -37,7 +35,6 @@
             align-items: center;
         }
 
-        /* Header Section */
         header {
             text-align: center;
             margin-bottom: 25px;
@@ -69,7 +66,6 @@
             line-height: 1.5;
         }
 
-        /* Platform Badges Container */
         .badges {
             display: flex;
             flex-wrap: wrap;
@@ -91,7 +87,6 @@
             backdrop-filter: blur(5px);
         }
 
-        /* Main Download Box Card */
         .download-box {
             width: 100%;
             background: rgba(255, 255, 255, 0.96);
@@ -143,10 +138,8 @@
 
         .btn-download:hover {
             background: #4338ca;
-            transform: translateY(-1px);
         }
 
-        /* Features Section Grid */
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -160,7 +153,6 @@
             padding: 20px;
             border-radius: 16px;
             text-align: center;
-            backdrop-filter: blur(10px);
         }
 
         .feature-icon {
@@ -179,7 +171,6 @@
             color: #94a3b8;
         }
 
-        /* Loading & Results */
         #loading {
             display: none;
             margin-top: 18px;
@@ -204,14 +195,13 @@
             text-decoration: none;
             font-weight: 600;
             margin-top: 10px;
-            transition: background 0.3s ease;
+            word-break: break-all;
         }
 
         .download-btn-success:hover {
             background: #059669;
         }
 
-        /* Desktop & Tablet Optimization (Screens wider than 640px) */
         @media (min-width: 640px) {
             .wrapper {
                 padding: 40px 20px;
@@ -281,7 +271,7 @@
     <script>
         function handleDownload(e) {
             e.preventDefault();
-            const url = document.getElementById('videoUrl').value;
+            const url = document.getElementById('videoUrl').value.trim();
             const loading = document.getElementById('loading');
             const result = document.getElementById('result');
 
@@ -290,24 +280,31 @@
 
             fetch('/download', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'url=' + encodeURIComponent(url)
+                headers: { 
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({ url: url })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(errData => { throw new Error(errData.message || 'Server Error'); });
+                }
+                return res.json();
+            })
             .then(data => {
                 loading.style.display = 'none';
                 if(data.status === 'success') {
                     result.innerHTML = `
-                        <p style="color: #10b981; font-weight:600; margin-bottom:8px;">${data.title || 'រៀបចំរួចរាល់!'}</p>
-                        <a href="${data.url}" class="download-btn-success" target="_blank"><i class="fa-solid fa-file-arrow-down"></i> ចុចទីនេះដើម្បី Save វីដេអូ</a>
+                        <p style="color: #10b981; font-weight:600; margin-bottom:8px;">${data.title}</p>
+                        <a href="${data.url}" class="download-btn-success" target="_blank" download><i class="fa-solid fa-file-arrow-down"></i> ចុចទីនេះដើម្បី Save វីដេអូ</a>
                     `;
                 } else {
-                    result.innerHTML = `<p style="color: #ef4444; font-weight:500;">${data.message || 'មានបញ្ហា! សូមពិនិត្យ Link ឡើងវិញ'}</p>`;
+                    result.innerHTML = `<p style="color: #ef4444; font-weight:500;">${data.message}</p>`;
                 }
             })
-            .catch(() => {
+            .catch(err => {
                 loading.style.display = 'none';
-                result.innerHTML = `<p style="color: #ef4444; font-weight:500;">មានបញ្ហាក្នុងការតភ្ជាប់ទៅ Server!</p>`;
+                result.innerHTML = `<p style="color: #ef4444; font-weight:500;">${err.message || 'មានបញ្ហាក្នុងការតភ្ជាប់ទៅ Server!'}</p>`;
             });
         }
     </script>
